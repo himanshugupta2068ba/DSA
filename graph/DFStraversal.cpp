@@ -17,14 +17,26 @@ class Graph{
         l[u].push_back(v);
     }
 
-    void printAdjList(){
-        for(int i=0;i<V;i++){
-            cout<<i<<"->";
-            for(auto node:l[i]){
-                cout<<node<<" ";
+    void dfshelper(int source,vector<bool>& visited){  //tc=O(V+E) sc=O(V)
+        visited[source]=true;
+        cout<<source<<" ";
+
+        for(auto neighbour:l[source]){
+            if(!visited[neighbour]){
+                dfshelper(neighbour,visited);
             }
-            cout<<endl;
         }
+    }
+
+    void dfs(){
+        int source=0;
+        vector<bool> visited(V,false);
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                dfshelper(i,visited);
+            }
+        }
+        dfshelper(source,visited);
     }
 };
 
